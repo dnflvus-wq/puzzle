@@ -1,0 +1,228 @@
+/* GameBoard.css */
+
+.game-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+    padding: 40px;
+    min-height: 100vh;
+    /* 캔디 크러쉬 스타일의 부드러운 배경 */
+    background: radial-gradient(circle at 50% 50%, #6e45e2 0%, #88d3ce 100%);
+    font-family: 'Varela Round', sans-serif;
+    /* 둥근 폰트 가정 */
+}
+
+/* 상단 정보 패널 (점수, 이동) */
+.score-panel {
+    display: flex;
+    gap: 40px;
+    align-items: center;
+    padding: 15px 50px;
+    background: rgba(255, 255, 255, 0.25);
+    border-radius: 50px;
+    border: 4px solid rgba(255, 255, 255, 0.6);
+    backdrop-filter: blur(10px);
+    box-shadow:
+        0 8px 32px rgba(0, 0, 0, 0.2),
+        inset 0 2px 10px rgba(255, 255, 255, 0.5);
+}
+
+.score-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+}
+
+.score-item .label {
+    font-size: 14px;
+    color: #fff;
+    text-transform: uppercase;
+    font-weight: 800;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    margin-bottom: 5px;
+}
+
+.score-item .value {
+    font-size: 42px;
+    font-weight: 900;
+    color: #fff;
+    text-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    -webkit-text-stroke: 2px #333;
+    /* 만화 같은 테두리 효과 */
+    line-height: 1;
+}
+
+.score-item .value.moves {
+    color: #ffecd2;
+}
+
+/* 콤보 표시 */
+.combo-display {
+    position: absolute;
+    top: 120px;
+    right: 50px;
+    /* 위치 조정 */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 15px 30px;
+    background: linear-gradient(135deg, #ff9966, #ff5e62);
+    border-radius: 20px;
+    border: 3px solid #fff;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+    animation: pop-in 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    z-index: 100;
+}
+
+@keyframes pop-in {
+    from {
+        transform: scale(0) rotate(-10deg);
+        opacity: 0;
+    }
+
+    to {
+        transform: scale(1) rotate(0deg);
+        opacity: 1;
+    }
+}
+
+.combo-text {
+    font-size: 36px;
+    font-weight: 900;
+    color: #fff;
+    text-shadow: 2px 2px 0px rgba(0, 0, 0, 0.2);
+}
+
+.combo-label {
+    font-size: 16px;
+    font-weight: bold;
+    color: #ffeaa7;
+}
+
+/* 게임 보드 프레임 */
+.game-board {
+    position: relative;
+    border-radius: 20px;
+    overflow: hidden;
+    /* 캔디가 돋보이도록 어두운 반투명 배경 */
+    background: rgba(0, 0, 0, 0.3);
+    box-shadow:
+        0 20px 50px rgba(0, 0, 0, 0.4),
+        inset 0 0 0 5px rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(5px);
+    width: fit-content;
+    /* 내용물(그리드)에 맞춤 */
+}
+
+/* 그리드 스타일 */
+.board-background {
+    display: grid;
+    grid-template-columns: repeat(8, 1fr);
+    /* padding: 10px;  <-- 패딩을 주면 좌표 계산이 틀어질 수 있으므로 제거하거나 신중히 사용 */
+}
+
+.grid-cell {
+    /* 타일 경계를 부드럽게 */
+    border-radius: 12px;
+    margin: 2px;
+    /* 셀 간격 */
+    background: rgba(255, 255, 255, 0.1);
+    box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.grid-cell.even {
+    background: rgba(255, 255, 255, 0.15);
+}
+
+.grid-cell.odd {
+    background: rgba(255, 255, 255, 0.08);
+}
+
+/* 캔디 레이어 */
+.candies-layer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    /* margin: 10px; <-- 위 board-background 패딩과 일치시켜야 함. 확인 필요 */
+    pointer-events: none;
+    /* 클릭은 캔디 컴포넌트가 받음 */
+}
+
+.candies-layer>* {
+    pointer-events: auto;
+    /* 자식 요소(캔디)는 클릭 가능 */
+}
+
+/* 게임 오버/성공 팝업 */
+.game-over {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(1);
+    background: linear-gradient(135deg, #fff 0%, #f0f0f0 100%);
+    padding: 50px 80px;
+    border-radius: 40px;
+    text-align: center;
+    box-shadow:
+        0 20px 60px rgba(0, 0, 0, 0.4),
+        0 0 0 10px rgba(255, 255, 255, 0.4);
+    z-index: 2000;
+    animation: popup-bounce 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@keyframes popup-bounce {
+    from {
+        transform: translate(-50%, -50%) scale(0.5);
+        opacity: 0;
+    }
+
+    to {
+        transform: translate(-50%, -50%) scale(1);
+        opacity: 1;
+    }
+}
+
+.game-over h2 {
+    font-size: 48px;
+    color: #ff6b6b;
+    margin-bottom: 20px;
+    -webkit-text-stroke: 1px #c0392b;
+}
+
+.game-over p {
+    font-size: 28px;
+    color: #555;
+    margin-bottom: 30px;
+    font-weight: bold;
+}
+
+.reset-button {
+    padding: 15px 50px;
+    font-size: 24px;
+    font-weight: 900;
+    color: #fff;
+    background: linear-gradient(to bottom, #4cd137, #44bd32);
+    border: none;
+    border-radius: 60px;
+    cursor: pointer;
+    box-shadow: 0 6px 0 #27ae60;
+    transition: all 0.1s;
+    text-transform: uppercase;
+}
+
+.reset-button:active {
+    transform: translateY(6px);
+    box-shadow: 0 0 0 #27ae60;
+}
+
+.reset-button.small {
+    margin-top: 20px;
+    padding: 10px 30px;
+    font-size: 16px;
+    background: linear-gradient(to bottom, #3498db, #2980b9);
+    box-shadow: 0 4px 0 #2980b9;
+}

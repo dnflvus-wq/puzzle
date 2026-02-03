@@ -1,0 +1,122 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Outfit', sans-serif;
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+.app {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.app-header {
+  text-align: center;
+  padding: 30px 20px 10px;
+}
+
+.game-title {
+  font-size: 48px;
+  font-weight: 800;
+  background: linear-gradient(135deg, #ff6b81 0%, #ffd32a 25%, #2ed573 50%, #1e90ff 75%, #a855f7 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-shadow: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+  animation: title-glow 2s ease-in-out infinite alternate;
+}
+
+@keyframes title-glow {
+  0% {
+    filter: drop-shadow(0 0 10px rgba(255, 107, 129, 0.5));
+  }
+
+  50% {
+    filter: drop-shadow(0 0 20px rgba(46, 213, 115, 0.5));
+  }
+
+  100% {
+    filter: drop-shadow(0 0 10px rgba(168, 85, 247, 0.5));
+  }
+}
+
+.title-candy {
+  font-size: 40px;
+  animation: candy-bounce 1s ease-in-out infinite;
+}
+
+.title-sparkle {
+  font-size: 36px;
+  animation: sparkle-rotate 2s linear infinite;
+}
+
+@keyframes candy-bounce {
+
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes sparkle-rotate {
+  0% {
+    transform: rotate(0deg) scale(1);
+  }
+
+  50% {
+    transform: rotate(180deg) scale(1.2);
+  }
+
+  100% {
+    transform: rotate(360deg) scale(1);
+  }
+}
+
+.game-subtitle {
+  font-size: 16px;
+  color: rgba(255, 255, 255, 0.7);
+  margin-top: 10px;
+  letter-spacing: 1px;
+}
+
+.app-main {
+  flex: 1;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 20px;
+}
+
+/* 반응형 */
+@media (max-width: 600px) {
+  .game-title {
+    font-size: 32px;
+  }
+
+  .title-candy,
+  .title-sparkle {
+    font-size: 28px;
+  }
+
+  .game-subtitle {
+    font-size: 14px;
+  }
+}

@@ -1,0 +1,110 @@
+.candy-wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  user-select: none;
+  -webkit-user-select: none;
+  /* 터치 액션 제어는 JS style 속성에서 처리됨 */
+}
+
+/* 선택 효과 */
+.candy-wrapper.selected img {
+  transform: scale(1.15);
+  transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+/* 매치된 상태 (애니메이션 처리는 JS에서 되지만 보조용) */
+.candy-wrapper.matched {
+  opacity: 0;
+  transition: opacity 0.3s ease-in;
+}
+
+/* --- 특수 캔디 효과 --- */
+
+/* 줄무늬 (Striped) */
+.special-stripe {
+  position: absolute;
+  background: rgba(255, 255, 255, 0.9);
+  box-shadow: 0 0 8px rgba(255, 255, 255, 0.8), 0 0 15px rgba(255, 255, 255, 0.4);
+  z-index: 5;
+  pointer-events: none;
+  border-radius: 4px;
+}
+
+.special-stripe.horizontal {
+  width: 90%;
+  height: 25%;
+  top: 37.5%;
+  /* 중앙 정렬 */
+  left: 5%;
+}
+
+.special-stripe.vertical {
+  width: 25%;
+  height: 90%;
+  top: 5%;
+  left: 37.5%;
+  /* 중앙 정렬 */
+}
+
+/* 포장지 (Wrapped) */
+.special-wrapped {
+  position: absolute;
+  width: 110%;
+  height: 110%;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.4) 30%, transparent 70%);
+  border: 2px solid rgba(255, 255, 255, 0.9);
+  border-radius: 45%;
+  box-sizing: border-box;
+  z-index: 4;
+  /* 펄스 애니메이션 */
+  animation: wrapped-pulse 2s infinite ease-in-out;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+}
+
+@keyframes wrapped-pulse {
+  0% {
+    transform: scale(0.95);
+    opacity: 0.6;
+    border-color: rgba(255, 255, 255, 0.7);
+  }
+
+  50% {
+    transform: scale(1.05);
+    opacity: 0.9;
+    border-color: rgba(255, 255, 255, 1.0);
+  }
+
+  100% {
+    transform: scale(0.95);
+    opacity: 0.6;
+    border-color: rgba(255, 255, 255, 0.7);
+  }
+}
+
+/* 컬러 밤 (Color Bomb)은 이미지가 있으므로 오버레이는 최소화하거나 광채만 추가 */
+.special-color-bomb {
+  position: absolute;
+  width: 120%;
+  height: 120%;
+  background: radial-gradient(circle, transparent 40%, rgba(255, 215, 0, 0.2) 70%);
+  /* 금색 광채 */
+  border-radius: 50%;
+  z-index: 3;
+  animation: rotate-shine 4s infinite linear;
+}
+
+@keyframes rotate-shine {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
